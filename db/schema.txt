@@ -1,0 +1,45 @@
+namespace my.bookshop;
+
+entity Books {
+  key ID     : UUID;
+      title  : String;
+      author : String;
+      stock  : Integer;
+
+      // One-to-many: one book can have many orders
+      orders : Association to many Orders on orders.book = $self;
+}
+
+entity Orders {
+  key ID       : UUID;
+      amount   : Integer;
+
+      book     : Association to Books    not null;  // mandatory relation
+      customer : Association to Customers not null;
+}
+
+entity Customers {
+  key ID     : UUID;
+      name   : String;
+      email  : String;
+
+      address : Composition of Address on address.customer = $self;
+
+      orders  : Association to many Orders on orders.customer = $self;
+}
+
+entity Address {
+  key ID     : UUID;
+      city   : String;
+      state  : String;
+
+      customer : Association to Customers;
+}
+
+entity Reviews {
+  key ID       : UUID;
+      rating   : Integer;
+      comment  : String;
+
+      customer : Association to Customers not null;
+}

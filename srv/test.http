@@ -1,0 +1,187 @@
+### POST Books
+POST  http://localhost:4004/odata/v4/CatalogService/Books
+Content-Type: application/json
+
+{
+  "title": "Animation",
+      "author": "rahul",
+      "stock": 10,
+      "publisher_ID":"1c6a581c-69d4-4f0a-b190-3cc9f38e6cf2",
+      "category_ID" : "c855f7fe-168b-4dc6-851e-3a3fdd95c91e"
+}
+
+### POST publisher
+POST  http://localhost:4004/odata/v4/CatalogService/Publishers
+Content-Type: application/json
+
+{
+  "name": "Shogakukan",
+  "email" : "Shogakukan@123gmail.com"
+}
+
+### POST categories
+POST http://localhost:4004/odata/v4/CatalogService/Categories
+Content-Type: application/json
+
+{
+  "name": "comics"
+}
+
+
+### POST Customer
+POST  http://localhost:4004/odata/v4/CatalogService/Customers
+Content-Type: application/json
+
+{
+  "name": "rahul",
+  "email": "rahul123@gmail.com",
+  "address" : {
+    "city":"patna",
+    "state":"bihar"
+  }
+}
+
+
+### POST Customer
+DELETE   http://localhost:4004/odata/v4/CatalogService/Customers(5574329f-0808-4b5f-a480-944de1e08657)
+
+
+
+
+
+### POST order
+POST  http://localhost:4004/odata/v4/CatalogService/Orders
+Content-Type: application/json
+
+{ 
+  "book_ID": "ad0d48a7-ca99-4a09-a7e3-cd997c2fbbc3",
+  "amount":4,
+  "customer_ID": "8fe7e1f0-abf3-43dc-90d8-f2535210e426"
+}
+
+### POST review
+POST http://localhost:4004/odata/v4/CatalogService/Reviews
+Content-Type: application/json
+
+{
+  "rating": 5,
+  "comment": "Excellent!",
+  "book_ID" : "ad0d48a7-ca99-4a09-a7e3-cd997c2fbbc3",
+  "reviewer_ID": "8fe7e1f0-abf3-43dc-90d8-f2535210e426"
+}
+
+### POST changeStock
+POST http://localhost:4004/odata/v4/CatalogService/changeStock
+Content-Type: application/json
+
+{
+  "ID": "3fbe70de-318d-4fb0-a91d-f04ee2668150",
+  "newStock":20
+}
+
+### GET getStock
+GET  http://localhost:4004/odata/v4/CatalogService/getStock(ID='988465ef-56d2-4ff4-ab54-431ec3989455')
+Content-Type: application/json
+//----------------------------------------------------------------------------
+### GET 
+GET  http://localhost:4004/odata/v4/CatalogService/Customers
+Content-Type: application/json
+
+### GET 
+GET  http://localhost:4004/odata/v4/CatalogService/Books(ID='6f55cbd7-cd4f-4d07-b987-ea5a94d06196')
+Content-Type: application/json
+
+
+### GET All books
+GET  http://localhost:4004/odata/v4/CatalogService/Books
+Content-Type: application/json
+
+
+### GET SINGLE book with specific bookID
+GET  http://localhost:4004/odata/v4/CatalogService/Books('3fbe70de-318d-4fb0-a91d-f04ee2668150')
+Content-Type: application/json
+
+### GET book with stock less than 5
+GET  http://localhost:4004/odata/v4/CatalogService/Books?$filter=stock gt 5
+Content-Type: application/json
+
+### GET books with specific title
+GET  http://localhost:4004/odata/v4/CatalogService/Books?$filter=title  eq 'nodejs'
+Content-Type: application/json
+
+### GET books with their order
+GET  http://localhost:4004/odata/v4/CatalogService/Books?$expand=orders
+Content-Type: application/json
+
+### GET books with order and the customer details
+GET  http://localhost:4004/odata/v4/CatalogService/Books?$expand=orders($expand=customer)
+Content-Type: application/json
+
+### GET details of customer with email
+GET  http://localhost:4004/odata/v4/CatalogService/Customers?$filter=email eq 'raj2582002@gmail.com'
+Content-Type: application/json
+
+### GET customer address
+GET  http://localhost:4004/odata/v4/CatalogService/Customers?$expand=address
+Content-Type: application/json
+
+### GET customer whose city is ranchi
+GET  http://localhost:4004/odata/v4/CatalogService/Customers?$filter=address/city ne 'patna'
+Content-Type: application/json
+
+###
+GET http://localhost:4004/odata/v4/CatalogService/Customers?$expand=address&$filter=address/city eq 'patna'
+
+### GET all customer details who gave reviews
+GET  http://localhost:4004/odata/v4/CatalogService/Reviews?$expand=customer
+Content-Type: application/json
+
+### GET all customer who give reviews
+GET  http://localhost:4004/odata/v4/CatalogService/Reviews?$expand=customer
+Content-Type: application/json
+
+### GET all books with publisher ID
+GET  http://localhost:4004/odata/v4/CatalogService/Publishers(aaf44c77-86a2-4198-9c6b-4e94864aa4e9)?$expand=books
+Content-Type: application/json
+
+### GET books details with publisher name
+GET  http://localhost:4004/odata/v4/CatalogService/Publishers?$filter=name eq 'McGraw Hill Education'&$expand=books
+Content-Type: application/json
+
+### GET all books which comes under categories programming
+GET  http://localhost:4004/odata/v4/CatalogService/Categories?$filter=name eq 'comics'&$expand=books
+Content-Type: application/json
+
+### GET books and review that comes under  specific categories
+GET  http://localhost:4004/odata/v4/CatalogService/Categories?$filter=name eq 'Programming'&$expand=books($expand=reviews)
+Content-Type: application/json
+
+
+### GET books and review and customer details  that comes under  specific categories
+GET  http://localhost:4004/odata/v4/CatalogService/Categories?$filter=name eq 'Programming'&$expand=books($expand=reviews($expand=reviewer))
+Content-Type: application/json
+
+
+### GET all books and orders that comes under specific categories
+GET  http://localhost:4004/odata/v4/CatalogService/Categories?$filter=name eq 'comics'&$expand=books($expand=orders,reviews)
+Content-Type: application/json
+
+### GET All books
+GET  http://localhost:4004/odata/v4/CatalogService/Books?$expand=publisher
+Content-Type: application/json
+
+### GET All books
+GET  http://localhost:4004/odata/v4/CatalogService/Books?$select=title,stock
+Content-Type: application/json
+
+### GET All books
+GET  http://localhost:4004/odata/v4/CatalogService/Customers?$select=name,email
+Content-Type: application/json
+
+### GET All books
+GET  http://localhost:4004/odata/v4/CatalogService/Customers?$select=name,email
+Content-Type: application/json
+
+### GET All books
+GET  http://localhost:4004/odata/v4/CatalogService/Books?$select=title
+Content-Type: application/json
